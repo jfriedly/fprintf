@@ -1,3 +1,7 @@
 My first README file!
 
-See the full description for details on the function of this program.
+This program parses your code and adds in an fprintf statement everywhere you have a
+printf statement.  Intended for OSU FEH students in ENG 192 that are getting
+annoyed at always having to copy and paste their printf statements so that the
+program will print to the screen and an output file.  Still needs work:
+indenting -- I'm trying to make it auto indent the statements properly too.
