@@ -7,14 +7,22 @@ int main()
 	FILE *outfile;
 	outfile=fopen("test-result.txt","w");
 	printf("\nWhattup\n");
-	fprintf(outfile, "\nWhattup\n");
-	for (i=0;i<5;i++)
-	{
+	fprintf(outfile, printf("\nWhattup\n");
+
+	for (i=0;i<5;i++)	{
 		printf("Now calculating...");
-	fprintf(outfile, "Now calculating...");
+		fprintf(outfile, printf("Now calculating...");
+
 		printf("%d\n", rand());
-	fprintf(outfile, "%d\n", rand());
+		fprintf(outfile, printf("%d\n", rand());
+
 	}
-	printf("\n\n\nYay!  I calculated 5 random numbers!");
-	fprintf(outfile, "\n\n\nYay!  I calculated 5 random numbers!");
+	printf("\n\n\nYay!  I cal{culated 5 random numbers!");
+	fprintf(outfile, printf("\n\n\nYay!  I cal{culated 5 random numbers!");
+
+
+	for(i=0;i<3;i++) { printf("Hey guys!"); }
+		fprintf(outfile, printf("Hey guys!"); }
+
+
 }
