@@ -11,8 +11,11 @@ int main()
 		printf("Now calculating...");
 		printf("%d\n", rand());
 	}
-	printf("\n\n\nYay!  I cal{culated 5 random numbers!");
+	printf("\n\n\nYay!  I cal{culated 5 \"rand{om\" numbers!");
 
-	for(i=0;i<3;i++) { printf("Hey guys!"); }
-
+	for(i=0;i<3;i++) { printf("Hey guys!");
+	 }
+	return 0;
 }
+
+

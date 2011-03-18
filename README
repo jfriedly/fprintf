@@ -1,7 +1,21 @@
 My first README file!
 
-This program parses your code and adds in an fprintf statement everywhere you have a
-printf statement.  Intended for OSU FEH students in ENG 192 that are getting
+This program parses your C code and adds in an fprintf statement everywhere you have a
+printf statement (with proper indentation).  Intended for OSU FEH students in ENG 192 that are getting
 annoyed at always having to copy and paste their printf statements so that the
-program will print to the screen and an output file.  Still needs work:
-indenting -- I'm trying to make it auto indent the statements properly too.
+program will print to the screen and an output file. 
+
+Still needs work:
+	--printf statements on the same line as a for loop; need to add squigly brackets so that the 
+	  fprintf statement will be executed as many times as the printf 
+		EXAMPLE: for(i=0;i<10;i++) printf("Hey!");
+		YIELDS:  for(i=0;i<10;i++) printf("Hey!");
+				fprintf(outfile, "Hey!);
+
+	--if the printf statement contains the an escaped double quotes part and there's a squigly 
+	  bracket inside it, the bracket might not get counted correctly 
+		EXAMPLE: printf("She said, \"I sent him an unhappy emoticon :{\"");
+		YIELDS:  printf("She said, \"I sent him an unhappy emoticon :{\"");
+
+		But the squigly counter gets incremented by one so future indentation will be off.
+
