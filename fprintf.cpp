@@ -6,7 +6,7 @@
 #include <time.h>
 #include <string.h>
 #include <stdlib.h>
-//#include </uhome/f/friedly.1/myquicksort.h>
+#include </uhome/f/friedly.1/myquicksort.h>
 
 int main ()
 {
@@ -28,70 +28,45 @@ int main ()
 	strcat (output_name, "-with-fprintf.cpp");
 	outfile = fopen (output_name, "w");
 
-	//declare some variables for the actual program. i is used to count open squilgy brackets so that it knows how many times to indent a given fprintf
-	//statement, j is used to do the actual indenting. The rest of them are explained where they are used.
-	char line[256], line_two[256], line_three[256];
-	char * quote_strptr, * second_quote_strptr, * rest_of_line_strptr, * print_stmt_strptr;
-	int i=0, j;
+	//declare some variables for the actual program 
+	char line[200], linesub[100];
+	char * strptr, * strptr2;
 	
 	//open the while loop that will scan the entire file
-	while (fgets(line, 255, infile) != NULL)
+	while (fgets(line, 200, infile) != NULL)
 	{
 		/*Unfortunately, it's a real pain to make c++ just insert data into a file.  So instead we'll just creat a new one, by the name of '[FILENAME]-with-fprintf.cpp' that contains all the old code with the new code.  Here's the line to include all the old code: */
 		fprintf(outfile,"%s", line);
-
-		//check for quotes, if there aren't any, count the squigly brackets
-		if(strstr(line, "\"")==NULL)
-		{
-			if(strstr(line, "{"))
-				i++;
-			if(strstr(line, "}"))
-				i--;
-		}
-		//if there are quotes, check the text before and after the quotes to see if there's a squigly bracket there
-		//have to make a copy of the line too so that we don't mess with string tokens later on
-		else
-		{
-			strcpy(line_two, line);						//make a copy
-			quote_strptr = strtok(line_two, "\"");  			//everything before the first quotes
-			second_quote_strptr = strtok(NULL, "\"");			//everything inside the quotes
-			rest_of_line_strptr = strtok(NULL, "\n");			//everything after the second quotes
-			if(strstr(quote_strptr, "{")||strstr(rest_of_line_strptr, "{"))
-				i++;
-			if(strstr(quote_strptr, "}")||strstr(rest_of_line_strptr, "}"))
-				i--;
-		}
-			
-		//for debugging, should print every line in the file as it's working
-		printf("Working... %d ... %s", i, line);
 		
-		//look through the entire line for the string 'printf'	
-		if (strstr(line, "printf"))
+		//separates the line by syntax characters
+		strptr = strtok(line, "(,;");
+		
+		//for debugging, should print every token in the file on a new line
+		printf("\nWorking... %s", strptr);
+		
+		/*takes the first x characters of strptr until the '(' to see if they are 'printf' */
+		sscanf(strptr,"%s^(",linesub);
+		
+		//if it sees a printf statement, do some fancy stuff:
+		if (strcmp(linesub,"printf")==0)
 		{
 			//for debugging, will alert on successfully finding a printf
-			printf("----------------Works!");
+			printf(" -- Works!");
 			
-			//figure out where in the line the 'printf' is and get a pointer to that spot
-			print_stmt_strptr = strstr(line, "printf(");
+			/*looks for the end of the current line and captures everything between where we are and that end*/
+			strptr2 = strtok(NULL, "\n");
 			
-			//more debugging, prints what is being put after the fprintf statement in the outfile
-			printf("  Scanned %s", print_stmt_strptr);
+			//more debugging
+			printf("  Scanned %s.", strptr2);
 			
-
-			/*THE IMPORTANT PART.  Assuming print_stmt_strptr isn't null, print it out to the outfile with that special 'fprintf(outfile, ' in 
-			front.*/
-			if (print_stmt_strptr!=NULL)
-			{
-				for(j=0;j<i;j++)
-					fprintf(outfile, "	");
-				fprintf(outfile, "fprintf(outfile, %s", print_stmt_strptr);
-			}
+			/*the important bit.  Assuming strptr2 isn't null, print it out to the outfile with that special 'fprintf(outfile, ' in front.*/
+			if (strptr2!=NULL)
+			fprintf(outfile, "	fprintf(outfile, %s\n", strptr2);
 		}
 	}
 	
-	printf("\n\n\nSee %s to view the output code.\n", output_name);
+	printf("\n\n\nAll done!  See %s to view the output code.\n", output_name);
 	fclose (infile);
 	fclose (outfile);
 	return 0;
 }
-
